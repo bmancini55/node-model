@@ -1,2 +1,2 @@
 
-module.exports = require('./lib/node-model');
+module.exports = require('./lib/model');
