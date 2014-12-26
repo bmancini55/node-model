@@ -97,13 +97,15 @@ describe('BaseModel', function() {
       "properties": [
         { "name": "first" },
         { "name": "rename", "clientName": "renamed" },
-        { "name": "noclient", "noClient": true}
+        { "name": "noclient", "noClient": true},
+        { "name": "last" }
       ]
     };
     values = {
       "first": "first",
       "rename": "rename",
-      "noclient": "noclient"
+      "noclient": "noclient",
+      "last": "last"
     };
 
 
@@ -115,12 +117,32 @@ describe('BaseModel', function() {
       expect(result).to.not.equal(sut);
     });
 
+    it('should not include schema property', function() {
+      var sut     = new BaseModel(schema, values)
+        , result  = sut.toClient()
+        ;
+
+      expect(result.schema).to.be.undefined;
+    });
+
+    it('should not include _super property', function() {
+      var sut     = new BaseModel(schema, values)
+        , result
+        ;
+
+      sut._super = null;
+      result = sut.toClient();        
+
+      expect(result._super).to.be.undefined;
+    });
+
     it('should create public properties', function() {
       var sut     = new BaseModel(schema, values)
         , result  = sut.toClient()
         ;
 
       expect(result.first).to.equal('first');
+      expect(result.last).to.equal('last');
     });
 
     it('should respect clientName prop configs', function() {
@@ -135,8 +157,19 @@ describe('BaseModel', function() {
       var sut     = new BaseModel(schema, values)
         , result  = sut.toClient()
         ;
-        
+
       expect(result.noclient).to.be.undefined;
+    });
+
+    it('should respect property ordinal position', function() {
+      var sut         = new BaseModel(schema, values)
+        , result      = sut.toClient()
+        , expectKeys  = [ 'first', 'renamed', 'last' ]
+        , actualKeys
+        ;
+
+      actualKeys = Object.keys(result);
+      expect(actualKeys).to.eql(expectKeys);
     });
 
   });
