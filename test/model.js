@@ -85,4 +85,59 @@ describe('BaseModel', function() {
     });
 
   });
+
+  describe('#toClient', function() {
+    /* jshint es5:false */
+    /* jshint quotmark: false */
+    var schema
+      , values
+      ;
+
+    schema = {
+      "properties": [
+        { "name": "first" },
+        { "name": "rename", "clientName": "renamed" },
+        { "name": "noclient", "noClient": true}
+      ]
+    };
+    values = {
+      "first": "first",
+      "rename": "rename",
+      "noclient": "noclient"
+    };
+
+
+    it('should create a shallow copy', function() {
+      var sut     = new BaseModel(schema, values)
+        , result  = sut.toClient()
+        ;
+
+      expect(result).to.not.equal(sut);
+    });
+
+    it('should create public properties', function() {
+      var sut     = new BaseModel(schema, values)
+        , result  = sut.toClient()
+        ;
+
+      expect(result.first).to.equal('first');
+    });
+
+    it('should respect clientName prop configs', function() {
+      var sut     = new BaseModel(schema, values)
+        , result  = sut.toClient()
+        ;
+
+      expect(result.renamed).to.equal('rename');
+    });
+
+    it('should respect noClient prop configs', function() {
+      var sut     = new BaseModel(schema, values)
+        , result  = sut.toClient()
+        ;
+        
+      expect(result.noclient).to.be.undefined;
+    });
+
+  });
 });
