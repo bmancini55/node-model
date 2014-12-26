@@ -1,6 +1,0 @@
-{
-  "properties": [
-    { "name": "first", "default": 1 },
-    { "name": "second", "default": 2 }
-  ]
-}

@@ -1,4 +1,4 @@
-var Model = require('../../lib/model');
+var extend = require('../../lib/extend');
 
-module.exports = Model.extend();
+module.exports = extend();
 

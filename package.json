@@ -19,6 +19,7 @@
   "dependencies": {
     "caller-path": "^0.1.0",
     "q": "^1.1.2",
+    "super-prop": "^0.1.1",
     "underscore": "^1.7.0"
   },
   "devDependencies": {
