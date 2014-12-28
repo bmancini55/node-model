@@ -25,11 +25,29 @@ function fixture(fileName) {
     });
   });
 
+  describe('when called with an object', function() {
+    it('should use the object for the schema', function() {
+      var schema
+        , result
+        ;
+      /* jshint es5:false */
+      /* jshint quotmark: false */
+      schema = {
+        "properties": [
+          { "name": "first"},
+          { "name": "second" }
+        ]
+      };
+      result = extend(schema);
+      expect(result).to.be.a('function');
+    });
+  });
+
   describe('when extended', function() {
 
     it('the Type should be isolated from other extended types', function() {
-      var A = extend(fixture('simple.js'))
-        , B = extend(fixture('simple.js'))
+      var A = extend(fixture('simple.json'))
+        , B = extend(fixture('simple.json'))
         , a
         , b
         ;
